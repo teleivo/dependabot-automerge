@@ -16,7 +16,9 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v1.3.1
       - name: Approve dependabot PR using PAT
-        run: gh pr review --approve "$PR_URL"
+        run: |
+          gh auth login
+          gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{secrets.PAT_TOKEN}}
